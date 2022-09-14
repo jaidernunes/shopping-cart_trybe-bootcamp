@@ -72,6 +72,20 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-console.log(fetchProducts('computador'));
+// essa funçao cria lista de produtos
+const listProductItems = async () => {
+  const fetched = await fetchProducts('computador');
+  const products = await fetched.results;
+  console.log(products);
+  products.forEach((product) => {
+    const items = document.querySelector('.items');
+    const productItem = createProductItemElement(product);
+    items.appendChild(productItem);
+    console.log(productItem);
+  });
+};
 
-window.onload = () => { };
+window.onload = async () => { 
+  // const products = await fetchProducts('computador');
+  await listProductItems();
+};
