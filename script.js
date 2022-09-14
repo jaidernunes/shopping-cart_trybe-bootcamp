@@ -76,12 +76,10 @@ const createCartItemElement = ({ id, title, price }) => {
 const listProductItems = async () => {
   const fetched = await fetchProducts('computador');
   const products = await fetched.results;
-  console.log(products);
   products.forEach((product) => {
     const items = document.querySelector('.items');
     const productItem = createProductItemElement(product);
     items.appendChild(productItem);
-    console.log(productItem);
   });
 };
 
