@@ -1,6 +1,8 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
 
+// const { remove } = require("cypress/types/lodash");
+
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
 /**
@@ -73,9 +75,10 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  */
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
+  li.id = id;
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  // li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', (event) => event.target.remove()); // cartItemClickListener
   return li;
 };
 
@@ -95,24 +98,9 @@ const listProductItems = async () => {
     const productItem = createProductItemElement(product);
     productItem.lastElementChild.addEventListener('click', addToCart);
     items.appendChild(productItem);
-
-    // const cartItem = await fetchItem(product.id);
-    // createProductItemElement(cartItem);
   });
 };
 
-// função cria 'li' de cart item
-// const createCartLi = async (id) => {
-//   const fetched = await fetchItem(id);
-//   const item = await fetched;
-//   item.forEach((product) => {
-//     const items = document.querySelector('.items');
-//     const productItem = createProductItemElement(product);
-//     items.appendChild(productItem);
-//   });  
-// };
-
 window.onload = async () => { 
-  // const products = await fetchProducts('computador');
   await listProductItems();
 };
