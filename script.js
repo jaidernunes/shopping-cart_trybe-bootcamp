@@ -28,6 +28,13 @@ const createCustomElement = (element, className, innerText) => {
   e.innerText = innerText;
   return e;
 };
+// const createCustomElementBTN = (element, className, innerText, id) => {
+//   const e = document.createElement(element);
+//   e.className = className;
+//   e.innerText = innerText;
+//   e.addEventListener('click', addToCart);
+//   return e;
+// };
 
 /**
  * Função responsável por criar e retornar o elemento do produto.
@@ -68,20 +75,42 @@ const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', cartItemClickListener);
+  // li.addEventListener('click', cartItemClickListener);
   return li;
 };
 
+// function adds item to cart
+const addToCart = async (event) => {
+  const itemByID = await fetchItem(event.target.parentElement.firstChild.innerText);
+  const cart = document.querySelector('.cart__items');
+  const cartItem = createCartItemElement(itemByID);
+  cart.appendChild(cartItem);
+};
 // essa funçao cria lista de produtos
 const listProductItems = async () => {
   const fetched = await fetchProducts('computador');
   const products = await fetched.results;
-  products.forEach((product) => {
+  products.forEach(async (product) => {
     const items = document.querySelector('.items');
     const productItem = createProductItemElement(product);
+    productItem.lastElementChild.addEventListener('click', addToCart);
     items.appendChild(productItem);
+
+    // const cartItem = await fetchItem(product.id);
+    // createProductItemElement(cartItem);
   });
 };
+
+// função cria 'li' de cart item
+// const createCartLi = async (id) => {
+//   const fetched = await fetchItem(id);
+//   const item = await fetched;
+//   item.forEach((product) => {
+//     const items = document.querySelector('.items');
+//     const productItem = createProductItemElement(product);
+//     items.appendChild(productItem);
+//   });  
+// };
 
 window.onload = async () => { 
   // const products = await fetchProducts('computador');
