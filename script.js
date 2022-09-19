@@ -1,7 +1,12 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
-
+// const saveCartItems = require("./helpers/saveCartItems");
 // const { remove } = require("cypress/types/lodash");
+
+const cartItemsOL = document.querySelector('.cart__items');
+const cart = document.querySelector('.cart');
+
+getSavedCartItems();
 
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
@@ -78,21 +83,24 @@ const createCartItemElement = ({ id, title, price }) => {
   li.id = id;
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', (event) => event.target.remove()); // cartItemClickListener
+  li.addEventListener('click', (event) => {
+    event.target.remove();
+    saveCartItems();
+  }); // cartItemClickListener
   return li;
 };
 
 // function adds item to cart
 const addToCart = async (event) => {
   const itemByID = await fetchItem(event.target.parentElement.firstChild.innerText);
-  const cart = document.querySelector('.cart__items');
   const cartItem = createCartItemElement(itemByID);
-  cart.appendChild(cartItem);
+  cartItemsOL.appendChild(cartItem);
+  saveCartItems();
 };
 // essa funçao cria lista de produtos
 const listProductItems = async () => {
-  const fetched = await fetchProducts('computador');
-  const products = await fetched.results;
+  const response = await fetchProducts('computador');
+  const products = await response.results;
   products.forEach(async (product) => {
     const items = document.querySelector('.items');
     const productItem = createProductItemElement(product);
