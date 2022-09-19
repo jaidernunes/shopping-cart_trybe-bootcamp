@@ -3,10 +3,7 @@
 // const saveCartItems = require("./helpers/saveCartItems");
 // const { remove } = require("cypress/types/lodash");
 
-const cartItemsOL = document.querySelector('.cart__items');
-const cart = document.querySelector('.cart');
-
-getSavedCartItems();
+// na monitoria Sergio me apontou a necessidade de inverter as duas linhas abaixo. novo objeto nao é o mesmo.
 
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
@@ -92,6 +89,7 @@ const createCartItemElement = ({ id, title, price }) => {
 
 // function adds item to cart
 const addToCart = async (event) => {
+  const cartItemsOL = document.querySelector('.cart__items');
   const itemByID = await fetchItem(event.target.parentElement.firstChild.innerText);
   const cartItem = createCartItemElement(itemByID);
   cartItemsOL.appendChild(cartItem);
@@ -111,4 +109,5 @@ const listProductItems = async () => {
 
 window.onload = async () => { 
   await listProductItems();
+  getSavedCartItems();
 };
