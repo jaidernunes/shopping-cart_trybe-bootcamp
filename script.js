@@ -7,7 +7,7 @@
 
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 // getSavedCartItems(document.querySelector('.cart__items'));
-
+const cartItemsOL = document.querySelector('.cart__items');
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
  * @param {string} imageSource - URL da imagem.
@@ -77,7 +77,7 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @returns {Element} Elemento de um item do carrinho.
  */
 const createCartItemElement = ({ id, title, price }) => {
-  const cartItemsOL = document.querySelector('.cart__items');
+  // const cartItemsOL = document.querySelector('.cart__items');
   const li = document.createElement('li');
   li.id = id;
   li.className = 'cart__item';
@@ -91,7 +91,7 @@ const createCartItemElement = ({ id, title, price }) => {
 
 // function adds item to cart
 const addToCart = async (event) => {
-  const cartItemsOL = document.querySelector('.cart__items');
+  // const cartItemsOL = document.querySelector('.cart__items');
   const itemByID = await fetchItem(event.target.parentElement.firstChild.innerText);
   const cartItem = createCartItemElement(itemByID);
   cartItemsOL.appendChild(cartItem);
@@ -111,7 +111,8 @@ const listProductItems = async () => {
 
 window.onload = async () => { 
   await listProductItems();
- // problema no local onde roda
+
+  getSavedCartItems(cartItemsOL);
 
   // adding listener to remove new items
   const newCartItems = document.querySelectorAll('.cart__item');
