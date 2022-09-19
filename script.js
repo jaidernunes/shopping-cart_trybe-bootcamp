@@ -109,10 +109,21 @@ const listProductItems = async () => {
   });
 };
 
+// essa funçao limpa o carrinho
+const createClearCart = () => {
+  const clearCartButton = document.querySelector('.empty-cart');
+  clearCartButton.addEventListener('click', () => {
+  localStorage.setItem('cartItems', '');
+  getSavedCartItems(cartItemsOL);
+});
+};
+
 window.onload = async () => { 
   await listProductItems();
 
   getSavedCartItems(cartItemsOL);
+
+  createClearCart();
 
   // adding listener to remove new items
   const newCartItems = document.querySelectorAll('.cart__item');
