@@ -1,9 +1,9 @@
-const saveCartItems = () => {
+const saveCartItems = (itemsInCart) => {
   // seu código aqui
-  const cartItemsOL = document.querySelector('.cart__items');
-  localStorage.setItem('cartItems', cartItemsOL.outerHTML);
+  // const cartItemsOL = document.querySelector('.cart__items');
+  localStorage.setItem('cartItems', itemsInCart);
 };
-// refatorar param
+// refatorar param mentoria vitu
 if (typeof module !== 'undefined') {
   module.exports = saveCartItems;
 }

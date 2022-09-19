@@ -1,17 +1,11 @@
-const getSavedCartItems = () => {
+const getSavedCartItems = (param) => {
   // seu código aqui
   // const defaultOL = '<ol class="cart__items"></ol>';
-  const cartItemsOL = document.querySelector('.cart__items');
-  cartItemsOL.outerHTML = localStorage.getItem('cartItems');
-  
-  // adding listener to remove new items
-  const newCartItems = document.querySelectorAll('.cart__item');
-  newCartItems.forEach((item) => item.addEventListener('click', (event) => {
-    event.target.remove();
-    localStorage.setItem('cartItems', cartItemsOL.outerHTML);
-  }));
-};
+  const cartOL = param;
+  cartOL.innerHTML = localStorage.getItem('cartItems');
+  };
 
+// refatorar param passar no teste, restante da funçao no script.js
 if (typeof module !== 'undefined') {
   module.exports = getSavedCartItems;
 }

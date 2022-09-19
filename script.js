@@ -6,6 +6,7 @@
 // na monitoria Sergio me apontou a necessidade de inverter as duas linhas abaixo. novo objeto nao é o mesmo.
 
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
+// getSavedCartItems(document.querySelector('.cart__items'));
 
 /**
  * Função responsável por criar e retornar o elemento de imagem do produto.
@@ -76,13 +77,14 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @returns {Element} Elemento de um item do carrinho.
  */
 const createCartItemElement = ({ id, title, price }) => {
+  const cartItemsOL = document.querySelector('.cart__items');
   const li = document.createElement('li');
   li.id = id;
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
   li.addEventListener('click', (event) => {
     event.target.remove();
-    saveCartItems();
+    saveCartItems(cartItemsOL.innerHTML);
   }); // cartItemClickListener
   return li;
 };
@@ -93,7 +95,7 @@ const addToCart = async (event) => {
   const itemByID = await fetchItem(event.target.parentElement.firstChild.innerText);
   const cartItem = createCartItemElement(itemByID);
   cartItemsOL.appendChild(cartItem);
-  saveCartItems();
+  saveCartItems(cartItemsOL.innerHTML);
 };
 // essa funçao cria lista de produtos
 const listProductItems = async () => {
@@ -109,5 +111,12 @@ const listProductItems = async () => {
 
 window.onload = async () => { 
   await listProductItems();
-  getSavedCartItems();
+ // problema no local onde roda
+
+  // adding listener to remove new items
+  const newCartItems = document.querySelectorAll('.cart__item');
+  newCartItems.forEach((item) => item.addEventListener('click', (event) => {
+    event.target.remove();
+    localStorage.setItem('cartItems', cartItemsOL.outerHTML);
+  }));
 };

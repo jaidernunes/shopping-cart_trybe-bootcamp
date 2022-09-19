@@ -8,14 +8,14 @@ describe('2 - Teste a função saveCartItems', () => {
   // test('if its a function', () => {
   //   expect(typeof saveCartItems).toEqual('function');
   // });
-
+const itemsInCart = `<li id="MLB2038148851" class="cart__item">ID: MLB2038148851 | TITLE: Monitor Gamer LG Ultrawide 29wl500 Led 29&nbsp;  Preto 100v/240v | PRICE: $1489</li>`
   test('if localStorage.setItem has been called', () => {
-    saveCartItems('cartItems')// localStorage.setItem();
+    saveCartItems(itemsInCart)// localStorage.setItem();
     expect(localStorage.setItem).toBeCalled();
   });
 
   test('if localStorage.setItem has been called with both parameters', () => {
-    saveCartItems('cartItems', itemsInCart)// localStorage.setItem();
+    saveCartItems(itemsInCart)// localStorage.setItem();
     expect(localStorage.setItem).toHaveBeenCalledWith('cartItems', itemsInCart);
   });
 });
